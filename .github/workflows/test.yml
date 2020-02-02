@@ -1,0 +1,46 @@
+name: Test
+
+'on':
+  push:
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        python-version:
+          - 3.5
+          - 3.6
+          - 3.7
+          - 3.8
+          - pypy3
+        pip-version:
+          - '>=10,<18'
+          - '>=18,<19'
+          - '>=19,<20'
+          - '>=20,<21'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install PIP
+        run: pip install ${{ matrix.pip-version }}
+
+      - name: Checkout Code
+        uses: actions/checkout@v1
+
+      - name: Install
+        run: |
+          pip install -e .
+          python --version
+          pip --version
+          pip freeze
+
+      - name: Test
+        run: envrpt
+
