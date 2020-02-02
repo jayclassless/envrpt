@@ -33,7 +33,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install PIP
-        run: pip install "pip${{ matrix.pip-version }}"
+        run: python -m pip install "pip${{ matrix.pip-version }}"
 
       - name: Checkout Code
         uses: actions/checkout@v1
