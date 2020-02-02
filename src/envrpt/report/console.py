@@ -7,6 +7,7 @@ class ConsoleReport(BasicReport):
         'MAIN': '''
 Python: {python_version}
 Runtime: {runtime} {runtime_version}
+Platform: {platform}
 Pip: {pip_version}
 Location: {base_directory}
 Total: {packages|len}

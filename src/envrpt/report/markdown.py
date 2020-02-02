@@ -10,6 +10,7 @@ class MarkdownReport(BasicReport):
 ## Environment
 * Python: {python_version}
 * Runtime: {runtime} {runtime_version}
+* Platform: {platform}
 * Pip: {pip_version}
 * Location: {base_directory}
 

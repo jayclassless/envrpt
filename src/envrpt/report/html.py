@@ -20,6 +20,7 @@ class HtmlReport(BasicReport):
         <ul>
             <li>Python: {python_version}</li>
             <li>Runtime: {runtime} {runtime_version}</li>
+            <li>Platform: {platform}</li>
             <li>Pip: {pip_version}</li>
             <li>Location: {base_directory}</li>
         </ul>
