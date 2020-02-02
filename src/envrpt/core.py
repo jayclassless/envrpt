@@ -21,18 +21,18 @@ def get_environment():
     env = {}
 
     version = get_distribution('envrpt').version
-    env['analyzer'] = f'envrpt/{version}'
+    env['analyzer'] = 'envrpt/%s' % (version,)
     env['date_analyzed'] = datetime.now()
 
     ver = sys.version_info
-    env['python_version'] = f'{ver.major}.{ver.minor}.{ver.micro}'
+    env['python_version'] = '%s.%s.%s' % (ver.major, ver.minor, ver.micro)
     env['pip_version'] = pip_version
 
     env['platform'] = sys.platform
 
     env['runtime'] = sys.implementation.name
     ver = sys.implementation.version
-    env['runtime_version'] = f'{ver.major}.{ver.minor}.{ver.micro}'
+    env['runtime_version'] = '%s.%s.%s' % (ver.major, ver.minor, ver.micro)
 
     env['base_directory'] = sys.prefix
 

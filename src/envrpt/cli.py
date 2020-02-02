@@ -70,7 +70,10 @@ def main():
             output = open(args.output, 'w')
         except IOError as exc:
             print(
-                f'Could not open {args.output} for writing: ' + str(exc),
+                'Could not open %s for writing: %s' % (
+                    args.output,
+                    exc,
+                ),
                 file=sys.stderr,
             )
             return 73

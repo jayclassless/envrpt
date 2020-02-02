@@ -26,7 +26,7 @@ def make_report(environment, fmt, options=None):
     """
 
     if fmt not in REPORT_TYPES:
-        raise ValueError(f'"{fmt}" is not a valid report type')
+        raise ValueError('"%s" is not a valid report type' % (fmt,))
 
     options = deepcopy(options)
     options['tty'] = options.get('tty', False)
