@@ -120,7 +120,7 @@ def identify_outdated_packages(environment):
 
     outdated = {
         pkg['name']: pkg['latest_version']
-        for pkg in json.loads(output)
+        for pkg in json.loads(output.decode('utf-8'))
     }
 
     for pkg in environment['packages'].values():
