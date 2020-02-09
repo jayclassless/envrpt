@@ -11,7 +11,7 @@ clean::
 	rm -rf dist build
 
 clean-full:: clean
-	rm -rf venv
+	rm -rf venv pip-wheel-metadata
 	find src -depth -name __pycache__ -type d -exec rm -rf "{}" \;
 
 
