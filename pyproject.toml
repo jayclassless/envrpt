@@ -34,5 +34,6 @@ min-public-methods = 0
 disabled = [
     'empty-lines',
     'document-start',
+    'line-length',
 ]
 

@@ -13,6 +13,8 @@ Location: {base_directory}
 Total: {packages|len}
 Outdated: {?outdated}{c_yellow}{outdated|len}{c_norm}{#outdated}
   {.}{/outdated}{:else}0{/outdated}
+Vulnerable: {?vulnerable}{c_red}{vulnerable|len}{c_norm}{#vulnerable}
+  {.}{/vulnerable}{:else}0{/vulnerable}
 Missing: {?missing}{c_red}{missing|len}{c_norm}{#missing}
   {.}{/missing}{:else}0{/missing}
 Invalid: {?invalid}{c_red}{invalid|len}{c_norm}{#invalid}
@@ -22,7 +24,7 @@ Invalid: {?invalid}{c_red}{invalid|len}{c_norm}{#invalid}
 ''',
 
         'PACKAGE': '''{c_bold}{name}=={version}{c_reset}{?license} ({license}){:else}{/license}
-{#issues}  {@eq key=type value="OUTDATED"}{c_yellow}!! Package is outdated; {c_bold}{latest_version}{c_unbold} is available{/eq}{@eq key=type value="REQ_MISSING"}{c_red}!! Dependency {c_bold}{key}{c_unbold} is missing{/eq}{@eq key=type value="REQ_INVALID"}{c_red}!! Dependency {c_bold}{key}{c_unbold} is invalid; require {c_bold}{requirement|s}{c_unbold} but {c_bold}{installed}{c_unbold} is installed{/eq}{c_reset}{~n}{/issues}{?dependencies}{#dependencies}  {key}{?spec} ({spec|s}){/spec}{~n}{/dependencies}{/dependencies}
+{#issues}  {@eq key=type value="OUTDATED"}{c_yellow}!! Package is outdated; {c_bold}{latest_version}{c_unbold} is available{/eq}{@eq key=type value="REQ_MISSING"}{c_red}!! Dependency {c_bold}{key}{c_unbold} is missing{/eq}{@eq key=type value="REQ_INVALID"}{c_red}!! Dependency {c_bold}{key}{c_unbold} is invalid; require {c_bold}{requirement|s}{c_unbold} but {c_bold}{installed}{c_unbold} is installed{/eq}{@eq key=type value="VULNERABLE"}{c_red}!! Package has a known vulnerability: {id}: {description|s}{/eq}{c_reset}{~n}{/issues}{?dependencies}{#dependencies}  {key}{?spec} ({spec|s}){/spec}{~n}{/dependencies}{/dependencies}
 ''',  # noqa
     }
 

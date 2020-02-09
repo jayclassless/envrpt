@@ -37,6 +37,15 @@ class HtmlReport(BasicReport):
                 </ul>
                 {/outdated}{:else}0{/outdated}
             </li>
+            <li><span title="Installed packages that have known vulnerabilities.">Vulnerable:</span> {?vulnerable}{vulnerable|len}
+                {?vulnerable}
+                <ul>
+                    {#vulnerable}
+                    <li>{?summary_only}{.}{:else}<a href="#{.}">{.}</a>{/summary_only}</li>
+                    {/vulnerable}
+                </ul>
+                {/vulnerable}{:else}0{/vulnerable}
+            </li>
             <li><span title="Required packages that are not currently installed.">Missing:</span> {?missing}{missing|len}
                 {?missing}
                 <ul>
@@ -85,7 +94,7 @@ class HtmlReport(BasicReport):
     <li>Issues:
         <ul>
             {#issues}
-            <li>{@eq key=type value="OUTDATED"}Package is outdated; <strong>{latest_version}</strong> is available{/eq}{@eq key=type value="REQ_MISSING"}Dependency <strong>{key}</strong> is missing{/eq}{@eq key=type value="REQ_INVALID"}Dependency <strong>{?summary_only}{key}{:else}<a href="#{key}">{key}</a>{/summary_only}</strong> is invalid; require <strong>{requirement}</strong> but <strong>{installed}</strong> is installed{/eq}</li>
+            <li>{@eq key=type value="OUTDATED"}Package is outdated; <strong>{latest_version}</strong> is available{/eq}{@eq key=type value="REQ_MISSING"}Dependency <strong>{key}</strong> is missing{/eq}{@eq key=type value="REQ_INVALID"}Dependency <strong>{?summary_only}{key}{:else}<a href="#{key}">{key}</a>{/summary_only}</strong> is invalid; require <strong>{requirement}</strong> but <strong>{installed}</strong> is installed{/eq}{@eq key=type value="VULNERABLE"}Package has a known vulnerability: {id}: {description}{/eq}</li>
             {/issues}
         </ul>
     </li>

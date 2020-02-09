@@ -22,10 +22,14 @@ def create_parser():
     )
 
     parser.add_argument(
-        '-u',
         '--skip-outdated-check',
         action='store_true',
         help='skips querying the package server for new versions of packages',
+    )
+    parser.add_argument(
+        '--skip-vulnerability-check',
+        action='store_true',
+        help='skips checking installed packages for known vulnerabilities',
     )
 
     parser.add_argument(
@@ -36,7 +40,6 @@ def create_parser():
         help='the format to output the environment report in; if not specified'
         ', defaults to console',
     )
-
     parser.add_argument(
         '-o',
         '--output',
@@ -82,6 +85,7 @@ def main():
 
     environment = analyze_environment(
         outdated_packages=not args.skip_outdated_check,
+        vulnerable_packages=not args.skip_vulnerability_check,
     )
 
     report = make_report(

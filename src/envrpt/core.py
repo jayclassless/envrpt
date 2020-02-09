@@ -16,6 +16,8 @@ from pip._internal.utils.misc import (
 from pip._vendor.packaging.specifiers import SpecifierSet
 from pip._vendor.pkg_resources import get_distribution
 
+from .vulnerabilities import identify_vulnerable_packages
+
 
 def get_environment():
     env = {}
@@ -131,15 +133,19 @@ def identify_outdated_packages(environment):
             })
 
 
-def analyze_environment(outdated_packages=True):
+def analyze_environment(outdated_packages=False, vulnerable_packages=False):
     """
     Analyzes the current Python environment and returns the information in a
     dictionary.
 
     :param outdated_packages:
         indicates whether or not to check for the existance of newer versions
-        of installed packages; if not specified, defaults to True
+        of installed packages; if not specified, defaults to False
     :type outdated_packages: bool
+    :param vulnerable_packages:
+        indicates whether or not to check if the installed packages are known
+        to have vulnerabilities; if not specified, defaults to False
+    :type vulnerable_packages: bool
     :rtype: dict
     """
 
@@ -150,6 +156,9 @@ def analyze_environment(outdated_packages=True):
 
     if outdated_packages:
         identify_outdated_packages(env)
+
+    if vulnerable_packages:
+        identify_vulnerable_packages(env)
 
     return env
 

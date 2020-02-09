@@ -42,6 +42,11 @@ class BasicReport:
             for pkg, issue in issues
             if issue['type'] == 'REQ_INVALID'
         })
+        args['vulnerable'] = sorted({
+            pkg['key']
+            for pkg, issue in issues
+            if issue['type'] == 'VULNERABLE'
+        })
 
         args['packages'] = sorted(
             environment['packages'].values(),
