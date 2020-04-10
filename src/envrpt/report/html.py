@@ -1,4 +1,6 @@
 
+import re
+
 from .basic import BasicReport
 
 
@@ -123,5 +125,6 @@ class HtmlReport(BasicReport):
 
 
 def create(environment, options):
-    return HtmlReport().create(environment, options)
+    rpt = HtmlReport().create(environment, options)
+    return re.sub(r'>\s+<', '><', rpt)
 
