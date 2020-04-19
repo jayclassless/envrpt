@@ -55,7 +55,7 @@ envrpt``), the ``envrpt`` command should become available::
 
 License
 -------
-``envrpt`` is released under the terms of the `MIT License`_.
+``envrpt`` is released under the terms of the `MIT License <https://opensource.org/licenses/MIT>`_.
 
-.. _MIT License: https://opensource.org/licenses/MIT
+It includes code from the `ashes <https://github.com/mahmoud/ashes>`_ project.
 
