@@ -6,7 +6,10 @@ from .json import create as create_json
 
 
 def get_data(name):
-    filename = resource_filename('envrpt', f'data/html_fancy/{name}')  # noqa: not-callable
+    filename = resource_filename(  # noqa: not-callable
+        'envrpt',
+        'data/html_fancy/%s' % (name,),
+    )
     with open(filename) as res:
         return res.read()
 
