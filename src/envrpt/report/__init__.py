@@ -1,7 +1,7 @@
 
 from copy import deepcopy
 
-from . import console, markdown, json, html
+from . import console, markdown, json, html, html_fancy
 
 
 REPORT_TYPES = {
@@ -9,6 +9,7 @@ REPORT_TYPES = {
     'json': json.create,
     'markdown': markdown.create,
     'html': html.create,
+    'html-fancy': html_fancy.create,
 }
 
 

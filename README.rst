@@ -33,7 +33,7 @@ When installed into the environment you wish to analyze (``pip install
 envrpt``), the ``envrpt`` command should become available::
 
     $ envrpt --help
-    usage: envrpt [-h] [-v] [--skip-outdated-check] [--skip-vulnerability-check] [-f {console,html,json,markdown}]
+    usage: envrpt [-h] [-v] [--skip-outdated-check] [--skip-vulnerability-check] [-f {console,html,html-fancy,json,markdown}]
                   [-o FILENAME] [-s] [-p]
 
     Analyzes the packages installed in a Python environment
@@ -45,7 +45,7 @@ envrpt``), the ``envrpt`` command should become available::
                             skips querying the package server for new versions of packages
       --skip-vulnerability-check
                             skips checking installed packages for known vulnerabilities
-      -f {console,html,json,markdown}, --format {console,html,json,markdown}
+      -f {console,html,html-fancy,json,markdown}, --format {console,html,html-fancy,json,markdown}
                             the format to output the environment report in; if not specified, defaults to console
       -o FILENAME, --output FILENAME
                             the filename to write the output to; if not specified, defaults to stdout
@@ -55,7 +55,12 @@ envrpt``), the ``envrpt`` command should become available::
 
 License
 -------
-``envrpt`` is released under the terms of the `MIT License <https://opensource.org/licenses/MIT>`_.
+``envrpt`` is released under the terms of the `MIT License
+<https://opensource.org/licenses/MIT>`_. It also includes code from the
+following projects:
 
-It includes code from the `ashes <https://github.com/mahmoud/ashes>`_ project.
+* `ashes <https://github.com/mahmoud/ashes>`_
+* `Preact <https://preactjs.com>`_
+* `history <https://github.com/ReactTraining/history>`_
+* `Specter.css <https://picturepan2.github.io/spectre>`_
 

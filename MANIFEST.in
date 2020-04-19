@@ -3,5 +3,9 @@ include *.toml
 include *.txt
 include Makefile
 include src/envrpt/_vendor/ashes/LICENSE
-exclude test.*
+recursive-include src/envrpt/data *.js *.css
+recursive-include js *.js *.json *.babelrc
+exclude test.* package-lock.json
+prune js/html-fancy/node_modules
+prune js/html-fancy/build
 

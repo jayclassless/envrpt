@@ -26,6 +26,7 @@ disabled = [
 disabled = [
     'missing-docstring',
     'trailing-newlines',
+    'duplicate-code',
 ]
 [tool.tidypy.pylint.options]
 min-public-methods = 0
