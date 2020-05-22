@@ -34,7 +34,7 @@ function PackageDependencies({pkg}) {
     return null;
   }
 
-  const [activeTab, setTab] = useState(defaultTab);
+  const [activeTab, setTab] = useState(defaultTab); // eslint-disable-line react-hooks/rules-of-hooks
 
   let content;
   if (activeTab === 'reqs') {
