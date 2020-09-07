@@ -36,7 +36,7 @@ python = "^3.6"
 pip = ">=10"
 
 [tool.poetry.dev-dependencies]
-tidypy = "*"
+# tidypy = "*"
 
 [tool.poetry.scripts]
 envrpt = "envrpt.cli:main"
