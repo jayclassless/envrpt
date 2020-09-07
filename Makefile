@@ -1,13 +1,7 @@
-BINDIR = $(if $(wildcard venv/bin), venv/bin/, '')
-
-
 ### Environment initialization
 
 setup-python::
-	python -m venv venv
-	./venv/bin/pip install --upgrade pip
-	./venv/bin/pip install -r requirements.txt
-	./venv/bin/pip install -e .
+	poetry install
 
 setup-js::
 	cd js/html-fancy && npm install --no-package-lock
@@ -19,11 +13,10 @@ setup:: setup-python setup-js
 ### Environment cleanup
 
 clean-python::
-	rm -rf dist build
+	rm -rf dist build poetry.lock
 
 clean-full-python:: clean-python
-	rm -rf venv pip-wheel-metadata src/envrpt.egg-info
-	find src -depth -name __pycache__ -type d -exec rm -rf "{}" \;
+	poetry env remove `poetry run which python`
 
 clean-js::
 	rm -rf js/html-fancy/build js/html-fancy/size-plugin.json
@@ -35,12 +28,18 @@ clean:: clean-python clean-js
 
 clean-full:: clean-full-python clean-full-js
 
+env::
+	poetry self --version
+	poetry version
+	poetry env info
+	poetry show --all
+
 
 
 ### Source analysis
 
 lint-python::
-	${BINDIR}tidypy check
+	poetry run tidypy check
 
 lint-js::
 	cd js/html-fancy && npm run lint
@@ -52,8 +51,7 @@ lint:: lint-python lint-js
 ### Compilation and packaging
 
 build-python:: clean-python
-	${BINDIR}python setup.py sdist
-	${BINDIR}python setup.py bdist_wheel
+	poetry build
 
 build-js:: clean-js
 	cd js/html-fancy && npm run build
@@ -69,5 +67,5 @@ build:: build-python
 ### Distribution
 
 publish::
-	${BINDIR}twine upload dist/*
+	poetry publish
 

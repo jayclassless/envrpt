@@ -1,5 +1,5 @@
-venv
 pip-wheel-metadata
 build
 dist
 /test.*
+poetry.lock
