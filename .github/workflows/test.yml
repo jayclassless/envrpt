@@ -44,9 +44,9 @@ jobs:
 
       - name: Install
         run: |
-          make setup
+          make setup-python
           make env
 
       - name: Test
-        run: envrpt
+        run: poetry run envrpt
 
