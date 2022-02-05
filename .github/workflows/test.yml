@@ -9,6 +9,7 @@ name: Test
 jobs:
   test:
     strategy:
+      fail-fast: false
       matrix:
         platform:
           - ubuntu-latest
@@ -38,7 +39,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install PIP
-        run: python -m pip --disable-pip-version-check install "pip${{ matrix.pip-version }}"
+        run: |
+          python -m pip --disable-pip-version-check install --ignore-installed "pip${{ matrix.pip-version }}"
+          pip --disable-pip-version-check --version
 
       - name: Checkout Code
         uses: actions/checkout@v2.4.0
@@ -46,8 +49,6 @@ jobs:
       - name: Install
         run: |
           pip --disable-pip-version-check install -e .
-          python --version
-          pip --disable-pip-version-check --version
           pip --disable-pip-version-check freeze
 
       - name: Test
