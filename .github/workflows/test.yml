@@ -40,7 +40,7 @@ jobs:
 
       - name: Install PIP
         run: |
-          python -m pip --disable-pip-version-check install --ignore-installed "pip${{ matrix.pip-version }}"
+          python -m pip --disable-pip-version-check install "pip${{ matrix.pip-version }}"
           pip --disable-pip-version-check --version
 
       - name: Checkout Code
