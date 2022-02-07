@@ -5,7 +5,6 @@ import time
 
 from pathlib import Path
 
-from pip._vendor import requests
 from pip._vendor.packaging.specifiers import SpecifierSet
 
 
@@ -25,6 +24,7 @@ def retrieve_db(etag=None):
     if etag:
         headers['If-None-Match'] = etag
 
+    from pip._vendor import requests
     resp = requests.get(SAFETYDB_URL, headers=headers)
 
     if resp.status_code == requests.codes.not_modified:  # noqa: no-member
