@@ -7,16 +7,88 @@ from datetime import datetime
 from email import message_from_string
 
 from pip import __version__ as pip_version
-from pip._internal.utils.misc import (
-    get_installed_distributions,
-    dist_is_editable,
-    dist_in_usersite,
-    dist_is_local,
-)
 from pip._vendor.packaging.specifiers import SpecifierSet
 from pip._vendor.pkg_resources import get_distribution
 
 from .vulnerabilities import identify_vulnerable_packages
+
+
+try:
+    from pip._internal.utils.misc import (
+        get_installed_distributions,
+        dist_is_editable,
+        dist_in_usersite,
+        dist_is_local,
+    )
+
+    def make_package(dist):
+        pkg_info = message_from_string(dist.get_metadata(dist.PKG_INFO))
+
+        pkg = {
+            'key': dist.key,
+            'name': dist.project_name,
+            'version': dist.version,
+            'description': get_pkg_info(pkg_info, 'Summary'),
+            'license': get_pkg_info(pkg_info, 'License'),
+            'home_page': get_pkg_info(pkg_info, 'Home-page'),
+            'is_editable': dist_is_editable(dist),
+            'in_user_site': dist_in_usersite(dist),
+            'in_global_site': not dist_is_local(dist),
+            'requirements': {
+                req.key: str(req.specifier) or None
+                for req in dist.requires()
+            },
+            'issues': [],
+        }
+
+        return pkg
+
+except ImportError:
+    from pip._internal.utils.compat import stdlib_pkgs
+    from pip._internal.metadata import get_default_environment, get_environment
+
+    def get_installed_distributions(
+        local_only = True,
+        skip = stdlib_pkgs,
+        include_editables = True,
+        editables_only = False,
+        user_only = False,
+        paths = None,
+    ):
+        if paths is None:
+            env = get_default_environment()
+        else:
+            env = get_environment(paths)
+        dists = env.iter_installed_distributions(
+            local_only=local_only,
+            skip=skip,
+            include_editables=include_editables,
+            editables_only=editables_only,
+            user_only=user_only,
+        )
+        return dists
+
+    def make_package(dist):
+        pkg_info = dist.metadata
+
+        pkg = {
+            'key': dist.canonical_name,
+            'name': dist._dist.project_name,
+            'version': str(dist.version),
+            'description': get_pkg_info(pkg_info, 'Summary'),
+            'license': get_pkg_info(pkg_info, 'License'),
+            'home_page': get_pkg_info(pkg_info, 'Home-page'),
+            'is_editable': dist.editable,
+            'in_user_site': dist.in_usersite,
+            'in_global_site': not dist.local,
+            'requirements': {
+                req.key: str(req.specifier) or None
+                for req in dist._dist.requires()
+            },
+            'issues': [],
+        }
+
+        return pkg
 
 
 def get_environment():
@@ -45,29 +117,6 @@ def get_pkg_info(pkg_info, key):
     if key in pkg_info and pkg_info[key] != 'UNKNOWN':
         return pkg_info[key]
     return None
-
-
-def make_package(dist):
-    pkg_info = message_from_string(dist.get_metadata(dist.PKG_INFO))
-
-    pkg = {
-        'key': dist.key,
-        'name': dist.project_name,
-        'version': dist.version,
-        'description': get_pkg_info(pkg_info, 'Summary'),
-        'license': get_pkg_info(pkg_info, 'License'),
-        'home_page': get_pkg_info(pkg_info, 'Home-page'),
-        'is_editable': dist_is_editable(dist),
-        'in_user_site': dist_in_usersite(dist),
-        'in_global_site': not dist_is_local(dist),
-        'requirements': {
-            req.key: str(req.specifier) or None
-            for req in dist.requires()
-        },
-        'issues': [],
-    }
-
-    return pkg
 
 
 def get_packages():
